@@ -12,7 +12,6 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @EnableEurekaClient
 @EnableFeignClients
-@EnableDiscoveryClient
 public class UserServiceApplication {
 
     @Bean
