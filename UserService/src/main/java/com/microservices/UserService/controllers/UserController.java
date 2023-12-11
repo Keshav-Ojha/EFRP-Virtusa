@@ -16,6 +16,8 @@ import com.microservices.UserService.entities.User;
 import com.microservices.UserService.services.UserService;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+import io.github.resilience4j.retry.annotation.Retry;
 
 @RestController
 @RequestMapping("/users")
@@ -36,9 +38,14 @@ public class UserController {
 		return userService.getAllUser();
 	}
 	
+	int count = 1;
+	
 	@GetMapping("/{id}")
-	@CircuitBreaker(name="ratingHotelBreaker", fallbackMethod = "fallback")
+	//@CircuitBreaker(name="ratingHotelBreaker", fallbackMethod = "fallback")
+	//@Retry(name="ratingHotelRetry", fallbackMethod = "fallback")
+	@RateLimiter(name="ratingHotelRateLimiter", fallbackMethod = "fallback")
 	public User getUserById(@PathVariable("id") String userId){
+		logger.info("Retry count: " + count++);
 		return userService.getUser(userId);
 	}
 	
