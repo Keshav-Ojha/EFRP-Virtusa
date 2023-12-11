@@ -67,6 +67,6 @@ resilience4j:
       ratingHotelRateLimiter:
         limit-refresh-period: 5s
         limit-for-period: 2
-        timeout-duration: 0s
+        timeout-duration: 3s
         
         
